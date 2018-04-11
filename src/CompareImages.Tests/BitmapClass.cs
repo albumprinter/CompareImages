@@ -9,6 +9,8 @@ namespace CompareImages.Tests
     [TestClass]
     public class BitmapClass
     {
+        private const string ImageSet = "1";
+
         private static byte[] Bitmap2ByteArray(Bitmap image)
         {
             Rectangle rect = new Rectangle(0, 0, image.Width, image.Height);
@@ -27,8 +29,8 @@ namespace CompareImages.Tests
         [TestMethod]
         public void SameImages()
         {
-            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "1img1.jpg")));
-            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "1img1.jpg")));
+            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
+            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
 
             var distance = HistogramDistance.Calculate(img1, img2, false);
             Assert.AreEqual(distance, 0);
@@ -40,27 +42,27 @@ namespace CompareImages.Tests
         [TestMethod]
         public void SimilarImages()
         {
-            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "1img1.jpg")));
-            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "1img2.jpg")));
+            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
+            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img2.jpg")));
 
             var distance = HistogramDistance.Calculate(img1, img2, false);
             Assert.IsTrue(distance < 10000);
 
             distance = HistogramDistance.Calculate(img1, img2, true);
-            Assert.IsTrue(distance < 0.001);
+            Assert.IsTrue(distance < 0.01);
         }
 
         [TestMethod]
         public void DifferentImages()
         {
-            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "1img1.jpg")));
-            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "2img1.jpg")));
+            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
+            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"1diff.bmp")));
 
             var distance = HistogramDistance.Calculate(img1, img2, false);
             Assert.IsTrue(distance > 100000);
 
             distance = HistogramDistance.Calculate(img1, img2, true);
-            Assert.IsTrue(distance > 1);
+            Assert.IsTrue(distance > 0.1);
         }
     }
 }
