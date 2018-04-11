@@ -22,10 +22,10 @@ namespace CompareImages
 
         private static double[] GetHistogram(byte[] image, bool normalize)
         {
-            var k = byte.MaxValue / ColorQuantization;
+            var k = 256 / ColorQuantization;
             var size = image.Length;
 
-            var histogram = new double[k];
+            var histogram = new double[ColorQuantization];
 
             for (int i = 0; i < size; i++)
             {

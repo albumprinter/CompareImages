@@ -31,7 +31,9 @@ namespace CompareImages.Tests
             var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "1img1.jpg")));
 
             var distance = HistogramDistance.Calculate(img1, img2, false);
+            Assert.AreEqual(distance, 0);
 
+            distance = HistogramDistance.Calculate(img1, img2, true);
             Assert.AreEqual(distance, 0);
         }
 
@@ -42,8 +44,10 @@ namespace CompareImages.Tests
             var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "1img2.jpg")));
 
             var distance = HistogramDistance.Calculate(img1, img2, false);
-
             Assert.IsTrue(distance < 10000);
+
+            distance = HistogramDistance.Calculate(img1, img2, true);
+            Assert.IsTrue(distance < 0.001);
         }
 
         [TestMethod]
@@ -53,8 +57,10 @@ namespace CompareImages.Tests
             var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", "2img1.jpg")));
 
             var distance = HistogramDistance.Calculate(img1, img2, false);
-
             Assert.IsTrue(distance > 100000);
+
+            distance = HistogramDistance.Calculate(img1, img2, true);
+            Assert.IsTrue(distance > 1);
         }
     }
 }
