@@ -59,31 +59,31 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\1diff.bmp">
+    <Content Include="Images\1\diff.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\1img1.jpg">
+    <Content Include="Images\1\img1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\1img2.jpg">
+    <Content Include="Images\1\img2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\2diff.bmp">
+    <Content Include="Images\kitty\diff.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\2img1.jpg">
+    <Content Include="Images\kitty\img1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\2img2.jpg">
+    <Content Include="Images\kitty\img2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\3diff.bmp">
+    <Content Include="Images\nature\diff.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\3img1.jpg">
+    <Content Include="Images\nature\img1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\3img2.jpg">
+    <Content Include="Images\nature\img2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
