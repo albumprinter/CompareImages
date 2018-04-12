@@ -77,6 +77,7 @@ Task("Build").Does(() => {
             .SetConfiguration(CONFIGURATION)
             .SetPlatformTarget(PlatformTarget.MSIL)
             .SetMSBuildPlatform(MSBuildPlatform.Automatic)
+            .WithProperty("AllowUnsafeBlocks", "true")
             );
     }
 });
@@ -96,7 +97,8 @@ Task("Pack").Does(() => {
 
     var msBuildSettings
         = new DotNetCoreMSBuildSettings()
-            .WithProperty("Version", gitVersion.NuGetVersionV2);
+            .WithProperty("Version", gitVersion.NuGetVersionV2)
+            .WithProperty("AllowUnsafeBlocks", "true");
 
     var coreSettings = new DotNetCorePackSettings {
         Configuration = CONFIGURATION,
