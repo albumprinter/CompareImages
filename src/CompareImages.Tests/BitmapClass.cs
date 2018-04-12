@@ -2,23 +2,21 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CompareImages;
 
 namespace CompareImages.Tests
 {
     [TestClass]
     public class BitmapClass
     {
-        private const string ImageSet = "1";
 
         private static byte[] Bitmap2ByteArray(Bitmap image)
         {
-            Rectangle rect = new Rectangle(0, 0, image.Width, image.Height);
+            var rect = new Rectangle(0, 0, image.Width, image.Height);
 
             var bitmapData = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, image.PixelFormat);
             var length = bitmapData.Stride * bitmapData.Height;
 
-            byte[] bytes = new byte[length];
+            var bytes = new byte[length];
 
             Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
             image.UnlockBits(bitmapData);
@@ -27,7 +25,11 @@ namespace CompareImages.Tests
         }
 
         [TestMethod]
-        public void SameImages()
+        [DataTestMethod]
+        [DataRow("1")]
+        [DataRow("2")]
+        [DataRow("3")]
+        public void SameImages(string ImageSet)
         {
             var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
             var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
@@ -40,7 +42,11 @@ namespace CompareImages.Tests
         }
 
         [TestMethod]
-        public void SimilarImages()
+        [DataTestMethod]
+        [DataRow("1")]
+        [DataRow("2")]
+        [DataRow("3")]
+        public void SimilarImages(string ImageSet)
         {
             var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
             var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img2.jpg")));
@@ -53,7 +59,11 @@ namespace CompareImages.Tests
         }
 
         [TestMethod]
-        public void DifferentImages()
+        [DataTestMethod]
+        [DataRow("1")]
+        [DataRow("2")]
+        [DataRow("3")]
+        public void DifferentImages(string ImageSet)
         {
             var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"{ImageSet}img1.jpg")));
             var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", $"1diff.bmp")));
