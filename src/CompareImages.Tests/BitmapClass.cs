@@ -24,7 +24,6 @@ namespace CompareImages.Tests
             return bytes;
         }
 
-        [TestMethod]
         [DataTestMethod]
         [DataRow("1")]
         [DataRow("kitty")]
@@ -41,7 +40,6 @@ namespace CompareImages.Tests
             Assert.AreEqual(distance, 0);
         }
 
-        [TestMethod]
         [DataTestMethod]
         [DataRow("1")]
         [DataRow("kitty")]
@@ -58,7 +56,6 @@ namespace CompareImages.Tests
             Assert.IsTrue(distance < 0.01);
         }
 
-        [TestMethod]
         [DataTestMethod]
         [DataRow("1")]
         [DataRow("kitty")]
