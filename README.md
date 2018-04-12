@@ -1,2 +1,2 @@
-# CompareImages
-Calculate distance between two images.
+# Compare images
+Calculate distance between two images based on their histogram.

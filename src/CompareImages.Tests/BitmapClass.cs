@@ -1,14 +1,12 @@
 ﻿using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace CompareImages.Tests
 {
-    [TestClass]
     public class BitmapClass
     {
-
         private static byte[] Bitmap2ByteArray(Bitmap image)
         {
             var rect = new Rectangle(0, 0, image.Width, image.Height);
@@ -24,10 +22,10 @@ namespace CompareImages.Tests
             return bytes;
         }
 
-        [DataTestMethod]
-        [DataRow("1", "img1.jpg", "img1.jpg")]
-        [DataRow("kitty", "img1.jpg", "img1.jpg")]
-        [DataRow("nature", "img1.jpg", "img1.jpg")]
+        [Theory]
+        [InlineData("1", "img1.jpg", "img1.jpg")]
+        [InlineData("kitty", "img1.jpg", "img1.jpg")]
+        [InlineData("nature", "img1.jpg", "img1.jpg")]
         public void SameImages(string imageSet, string image1Name, string image2Name)
         {
             using (var image1 = new Bitmap(Path.Combine("Images", imageSet, image1Name)))
@@ -37,18 +35,18 @@ namespace CompareImages.Tests
                 var img2 = Bitmap2ByteArray(image2);
 
                 var distance = HistogramDistance.Calculate(img1, img2, false);
-                Assert.AreEqual(distance, 0);
+                Assert.True(distance == 0);
 
                 distance = HistogramDistance.Calculate(img1, img2, true);
-                Assert.AreEqual(distance, 0);
+                Assert.True(distance == 0);
             }
 
         }
 
-        [DataTestMethod]
-        [DataRow("1", "img1.jpg", "img2.jpg")]
-        [DataRow("kitty", "img1.jpg", "img2.jpg")]
-        [DataRow("nature", "img1.jpg", "img2.jpg")]
+        [Theory]
+        [InlineData("1", "img1.jpg", "img2.jpg")]
+        [InlineData("kitty", "img1.jpg", "img2.jpg")]
+        [InlineData("nature", "img1.jpg", "img2.jpg")]
         public void SimilarImages(string imageSet, string image1Name, string image2Name)
         {
             using (var image1 = new Bitmap(Path.Combine("Images", imageSet, image1Name)))
@@ -58,17 +56,17 @@ namespace CompareImages.Tests
                 var img2 = Bitmap2ByteArray(image2);
 
                 var distance = HistogramDistance.Calculate(img1, img2, false);
-                Assert.IsTrue(distance < 10000);
+                Assert.True(distance < 10000);
 
                 distance = HistogramDistance.Calculate(img1, img2, true);
-                Assert.IsTrue(distance < 0.01);
+                Assert.True(distance < 0.01);
             }
         }
 
-        [DataTestMethod]
-        [DataRow("1", "img1.jpg", "diff.bmp")]
-        [DataRow("kitty", "img1.jpg", "diff.bmp")]
-        [DataRow("nature", "img1.jpg", "diff.bmp")]
+        [Theory]
+        [InlineData("1", "img1.jpg", "diff.bmp")]
+        [InlineData("kitty", "img1.jpg", "diff.bmp")]
+        [InlineData("nature", "img1.jpg", "diff.bmp")]
         public void DifferentImages(string imageSet, string image1Name, string image2Name)
         {
             using (var image1 = new Bitmap(Path.Combine("Images", imageSet, image1Name)))
@@ -78,10 +76,10 @@ namespace CompareImages.Tests
                 var img2 = Bitmap2ByteArray(image2);
 
                 var distance = HistogramDistance.Calculate(img1, img2, false);
-                Assert.IsTrue(distance > 100000);
+                Assert.True(distance > 100000);
 
                 distance = HistogramDistance.Calculate(img1, img2, true);
-                Assert.IsTrue(distance > 0.1);
+                Assert.True(distance > 0.1);
             }
         }
     }

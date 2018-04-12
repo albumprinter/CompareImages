@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompareImages", "CompareImages\CompareImages.csproj", "{27B523B0-63D4-4A05-A45F-48EE8C0E0B1D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareImages.Tests", "CompareImages.Tests\CompareImages.Tests.csproj", "{667885A1-65D9-4E83-A2B8-A1B2D79873C7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{27B523B0-63D4-4A05-A45F-48EE8C0E0B1D} = {27B523B0-63D4-4A05-A45F-48EE8C0E0B1D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
