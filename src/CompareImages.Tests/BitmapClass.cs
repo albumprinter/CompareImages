@@ -25,51 +25,64 @@ namespace CompareImages.Tests
         }
 
         [DataTestMethod]
-        [DataRow("1")]
-        [DataRow("kitty")]
-        [DataRow("nature")]
-        public void SameImages(string imageSet)
+        [DataRow("1", "img1.jpg", "img1.jpg")]
+        [DataRow("kitty", "img1.jpg", "img1.jpg")]
+        [DataRow("nature", "img1.jpg", "img1.jpg")]
+        public void SameImages(string imageSet, string image1Name, string image2Name)
         {
-            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", imageSet, "img1.jpg")));
-            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", imageSet, "img1.jpg")));
+            using (var image1 = new Bitmap(Path.Combine("Images", imageSet, image1Name)))
+            using (var image2 = new Bitmap(Path.Combine("Images", imageSet, image2Name)))
+            {
+                var img1 = Bitmap2ByteArray(image1);
+                var img2 = Bitmap2ByteArray(image2);
 
-            var distance = HistogramDistance.Calculate(img1, img2, false);
-            Assert.AreEqual(distance, 0);
+                var distance = HistogramDistance.Calculate(img1, img2, false);
+                Assert.AreEqual(distance, 0);
 
-            distance = HistogramDistance.Calculate(img1, img2, true);
-            Assert.AreEqual(distance, 0);
+                distance = HistogramDistance.Calculate(img1, img2, true);
+                Assert.AreEqual(distance, 0);
+            }
+
         }
 
         [DataTestMethod]
-        [DataRow("1")]
-        [DataRow("kitty")]
-        [DataRow("nature")]
-        public void SimilarImages(string imageSet)
+        [DataRow("1", "img1.jpg", "img2.jpg")]
+        [DataRow("kitty", "img1.jpg", "img2.jpg")]
+        [DataRow("nature", "img1.jpg", "img2.jpg")]
+        public void SimilarImages(string imageSet, string image1Name, string image2Name)
         {
-            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", imageSet, "img1.jpg")));
-            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", imageSet, "img2.jpg")));
+            using (var image1 = new Bitmap(Path.Combine("Images", imageSet, image1Name)))
+            using (var image2 = new Bitmap(Path.Combine("Images", imageSet, image2Name)))
+            {
+                var img1 = Bitmap2ByteArray(image1);
+                var img2 = Bitmap2ByteArray(image2);
 
-            var distance = HistogramDistance.Calculate(img1, img2, false);
-            Assert.IsTrue(distance < 10000);
+                var distance = HistogramDistance.Calculate(img1, img2, false);
+                Assert.IsTrue(distance < 10000);
 
-            distance = HistogramDistance.Calculate(img1, img2, true);
-            Assert.IsTrue(distance < 0.01);
+                distance = HistogramDistance.Calculate(img1, img2, true);
+                Assert.IsTrue(distance < 0.01);
+            }
         }
 
         [DataTestMethod]
-        [DataRow("1")]
-        [DataRow("kitty")]
-        [DataRow("nature")]
-        public void DifferentImages(string imageSet)
+        [DataRow("1", "img1.jpg", "diff.bmp")]
+        [DataRow("kitty", "img1.jpg", "diff.bmp")]
+        [DataRow("nature", "img1.jpg", "diff.bmp")]
+        public void DifferentImages(string imageSet, string image1Name, string image2Name)
         {
-            var img1 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", imageSet, "img1.jpg")));
-            var img2 = Bitmap2ByteArray(new Bitmap(Path.Combine("Images", imageSet, "diff.bmp")));
+            using (var image1 = new Bitmap(Path.Combine("Images", imageSet, image1Name)))
+            using (var image2 = new Bitmap(Path.Combine("Images", imageSet, image2Name)))
+            {
+                var img1 = Bitmap2ByteArray(image1);
+                var img2 = Bitmap2ByteArray(image2);
 
-            var distance = HistogramDistance.Calculate(img1, img2, false);
-            Assert.IsTrue(distance > 100000);
+                var distance = HistogramDistance.Calculate(img1, img2, false);
+                Assert.IsTrue(distance > 100000);
 
-            distance = HistogramDistance.Calculate(img1, img2, true);
-            Assert.IsTrue(distance > 0.1);
+                distance = HistogramDistance.Calculate(img1, img2, true);
+                Assert.IsTrue(distance > 0.1);
+            }
         }
     }
 }
