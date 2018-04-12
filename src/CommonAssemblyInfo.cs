@@ -1,11 +1,11 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Albumprinter")]
-[assembly: AssemblyProduct("Albumprinter.CompareImages")]
+[assembly: AssemblyCompany("Albelli")]
+[assembly: AssemblyProduct("Albelli.CompareImages")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("Albumprinter")]
+[assembly: AssemblyTrademark("Albelli")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("1.0.0.0")]
