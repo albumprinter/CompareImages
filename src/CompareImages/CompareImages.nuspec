@@ -1,14 +1,18 @@
 ﻿<?xml version="1.0"?>
 <package>
   <metadata>
-    <id>$id$</id>
+    <id>CompareImages</id>
     <version>$version$</version>
-    <title>$id$</title>
-    <description>$id$</description>
+    <title>Compare images</title>
+    <description>Calculate distance between two images based on their histogram.</description>
     <tags>CompareImages</tags>
     <projectUrl>https://github.com/albumprinter/CompareImages</projectUrl>
-    <owners>$author$</owners>
+    <owners>Albelli</owners>
     <authors>Albelli</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
   </metadata>
+  <files>
+    <file src="bin\$configuration$\**\*.dll" target="lib" />
+    <file src="bin\$configuration$\**\*.pdb" target="lib" />
+  </files>
 </package>

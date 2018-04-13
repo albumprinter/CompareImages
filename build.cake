@@ -29,14 +29,7 @@ string EnvironmentVariableOrFail(string varName){
 
 IEnumerable<FilePath> GetProjectFiles()
 {
-    return GetFiles(src.Path + "/*/*.csproj").Where(file=>
-        !file.GetFilenameWithoutExtension().FullPath.EndsWith("Tests")
-        && file.GetFilenameWithoutExtension().FullPath != "MQClient"
-        && file.GetFilenameWithoutExtension().FullPath != "WebApp1"
-        && file.GetFilenameWithoutExtension().FullPath != "WebApp2"
-        && file.GetFilenameWithoutExtension().FullPath != "WebClient"
-        && file.GetFilenameWithoutExtension().FullPath != "TopShelfDemo"
-        ).OrderBy(x=>x.FullPath);
+    return GetFiles(src.Path + "/*/*.nuspec").OrderBy(x=>x.FullPath);
 }
 
 bool IsDotNetStandard(FilePath project)
@@ -115,6 +108,7 @@ Task("Pack").Does(() => {
         Symbols = true,
         IncludeReferencedProjects = false,
         Verbosity = NuGetVerbosity.Detailed,
+        Version = gitVersion.NuGetVersionV2,
         Properties = new Dictionary<string, string> {
             { "Configuration", CONFIGURATION }
         },
